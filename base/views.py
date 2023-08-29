@@ -19,8 +19,8 @@ def room(request):
 
 
 def getToken(request):
-    appId = "YOUR APP ID"
-    appCertificate = "YOUR APP CERTIFICATE"
+    appId = "254bab62ebbe4ceca461527541ccc6f4"
+    appCertificate = "95a2828c5367472fb694059c20fd0a3b"
     channelName = request.GET.get('channel')
     uid = random.randint(1, 230)
     expirationTimeInSeconds = 3600
@@ -36,13 +36,18 @@ def getToken(request):
 @csrf_exempt
 def createMember(request):
     data = json.loads(request.body)
-    member, created = RoomMember.objects.get_or_create(
+    # member, created = RoomMember.objects.get_or_create(
+    #     name=data['name'],
+    #     uid=data['UID'],
+    #     room_name=data['room_name']
+    # )
+    RoomMember.objects.get_or_create(
         name=data['name'],
         uid=data['UID'],
         room_name=data['room_name']
     )
 
-    return JsonResponse({'name':data['name']}, safe=False)
+    return JsonResponse({'name':data['name']}, safe=True)
 
 
 def getMember(request):
